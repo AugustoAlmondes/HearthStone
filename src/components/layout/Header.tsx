@@ -24,10 +24,10 @@ export default function Header() {
 
             <ul className="flex gap-10 font-manrope">
                 <li>
-                    <Link to="/" className={`${location.pathname === "/" ? "text-primary" : "text-white "}`}>HOME</Link>
+                    <Link to="/" className={`${location.pathname === "/" ? "text-primary" : "text-neutral-900 "}`}>HOME</Link>
                 </li>
                 <li>
-                    <Link to="/create" className={`${location.pathname === "/create" ? "text-primary" : "text-white "}`}>CARTAS</Link>
+                    <Link to="/create" className={`${location.pathname === "/create" ? "text-primary" : "text-neutral-900 "}`}>CARTAS</Link>
                 </li>
             </ul>
 
