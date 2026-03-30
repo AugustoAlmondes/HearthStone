@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+    --color-black: "#000000";
+    --color-white: "#FFFFFF";
+    --font-newsreader: "Newsreader", serif;
+    --font-manrope: "Manrope", serif;
+
+    /* AMARELO */
+    --color-primary-100: "#221B00";
+    --color-primary-200: "#3A3000";
+    --color-primary-300: "#544600";
+    --color-primary-400: "#705D00";
+    --color-primary-500: "#8C7500";
+    --color-primary-600: "#AA8F00";
+    --color-primary-700: "#C9A900";
+    --color-primary-800: "#FFE16D";
+    --color-primary-900: "#FFF0C2";
+
+    /* MARROM */
+    --color-secondary-100: "#281810";
+    --color-secondary-200: "#3F2C23";
+    --color-secondary-300: "#574238";
+    --color-secondary-400: "#705A4F";
+    --color-secondary-500: "#8A7267";
+    --color-secondary-600: "#C1A699";
+    --color-secondary-700: "#DEC1B3";
+    --color-secondary-800: "#FBDCCE";
+    --color-secondary-900: "#FFEDE6";
+
+    /* ROXO */
+    --color-tertiary-100: "#1C035E";
+    --color-tertiary-200: "#312173";
+    --color-tertiary-300: "#483A8B";
+    --color-tertiary-400: "#483A8B";
+    --color-tertiary-500: "#796BBF";
+    --color-tertiary-600: "#9385DB";
+    --color-tertiary-700: "#AEA0F8";
+    --color-tertiary-800: "#CABEFF";
+    --color-tertiary-900: "#E6DEFF";
+
+    /* CINZA */
+    --color-neutral-100: "#E6DEFF";
+    --color-neutral-200: "#342F2D";
+    --color-neutral-300: "#4B4643";
+    --color-neutral-400: "#635D5A";
+    --color-neutral-500: "#7D7673";
+    --color-neutral-600: "#978F8C";
+    --color-neutral-700: "#B2A9A6";
+    --color-neutral-800: "#CEC5C1";
+    --color-neutral-900: "#EAE1DD";
+}
