@@ -18,7 +18,7 @@ export default function Header() {
         border-b-2 border-primary-700
         w-full h-20 gap-5
         flex items-center justify-between
-        px-20 shadow-2xl
+        px-20 shadow-2xl z-20
         "
         >
             <div className="w-40">
