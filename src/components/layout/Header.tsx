@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useCardStore } from "../../store/useCardStore";
 
 export default function Header() {
