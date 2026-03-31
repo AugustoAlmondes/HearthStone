@@ -1,3 +1,4 @@
+import CardItem from "../components/CardList/CardItem"
 import Aside from "../components/list/Aside"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../components/ui/select"
 import { Search, X } from "lucide-react"
@@ -97,6 +98,37 @@ export default function List() {
                             </button>
                         </div>
                     </form>
+
+                    <div className="flex flex-wrap gap-6 mx justify-center mt-15">
+                        <CardItem
+                            card={{
+                                id: "1",
+                                nome: "Mestre dos Magos",
+                                descricao: "Esta carta faz o seu oponente ficar com raiva",
+                                ataque: 20,
+                                defesa: 10,
+                                mana: 1,
+                                tipo: "Criatura",
+                                classe: "Paladino",
+                            }}
+                            onEdit={() => { }}
+                            onDelete={() => { }}
+                        />
+                        <CardItem
+                            card={{
+                                id: "1",
+                                nome: "Mestre dos Magos",
+                                descricao: "Esta carta faz o seu oponente ficar com raiva",
+                                ataque: 10,
+                                defesa: 20,
+                                mana: 10,
+                                tipo: "Criatura",
+                                classe: "Mago",
+                            }}
+                            onEdit={() => { }}
+                            onDelete={() => { }}
+                        />
+                    </div>
                 </div>
             </div>
         </>
