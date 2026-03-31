@@ -25,14 +25,11 @@ export const useCardStore = create<CardStore>((set, get) => ({
 
     loadCards: () => {
         let cards = cardService.getAll();
-        
-        // Popula com seed se o storage estiver vazio ou contiver dados antigos (sem campo 'nome')
-        const isOldData = cards.length > 0 && !('nome' in cards[0]);
-        if (cards.length === 0 || isOldData) {
+        // Popula com seed se o storage estiver vazio
+        if (cards.length === 0) {
             cardService.save(seedCards);
             cards = seedCards;
         }
-        
         set({ cards });
     },
 

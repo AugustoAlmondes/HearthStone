@@ -16,7 +16,7 @@ export default function Header() {
             fixed
         bg-linear-to-b from-neutral-100 via-neutral-100/95 to-neutral-100
         border-b-2 border-primary-700
-        w-full h-20
+        w-full h-20 gap-5
         flex items-center justify-between
         px-20 shadow-2xl
         "
@@ -24,15 +24,6 @@ export default function Header() {
             <div className="w-40">
                 <img src="/images/logo.png" alt="logo" className="w-full" />
             </div>
-
-            <ul className="flex gap-10 font-manrope">
-                <li>
-                    <Link to="/" className={`${location.pathname === "/" ? "text-primary-400" : "text-neutral-900 "}`}>HOME</Link>
-                </li>
-                <li>
-                    <Link to="/create" className={`${location.pathname === "/create" ? "text-primary-400" : "text-neutral-900 "}`}>CARTAS</Link>
-                </li>
-            </ul>
 
             <div>
                 <button className="

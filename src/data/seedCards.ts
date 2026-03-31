@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Card, CardClass, CardType } from "../types/card.types";
+import type { Card, CardClass, CardType } from "../types/card.types";
 
 export const seedCards: Card[] = [
   {
