@@ -148,6 +148,7 @@ export default function List() {
                 isFormOpen={isFormOpen}
                 closeForm={closeForm}
                 createCard={createCard}
+                updateCard={updateCard}
                 selectedCard={selectedCard}
             />
         </>

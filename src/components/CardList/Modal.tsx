@@ -8,6 +8,7 @@ interface ModalProps {
     isFormOpen: boolean;
     closeForm: () => void;
     createCard: (data: CardFormData) => void;
+    updateCard: (id: string, data: CardFormData) => void;
     selectedCard?: Card | null;
 }
 
@@ -15,6 +16,7 @@ export default function Modal({
     isFormOpen,
     closeForm,
     createCard,
+    updateCard,
     selectedCard
 }: ModalProps) {
     const isEditing = !!selectedCard;
@@ -70,7 +72,12 @@ export default function Modal({
     if (!isFormOpen) return null;
 
     const onSubmit = (data: CardFormData) => {
-        createCard(data);
+        if (isEditing && selectedCard) {
+            updateCard(selectedCard.id, data);
+        } else {
+            createCard(data);
+        }
+        closeForm();
     };
 
     const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -171,9 +178,6 @@ export default function Modal({
                                             <option key={classe} value={classe}>{classe}</option>
                                         ))}
                                     </select>
-                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-primary-500">
-                                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +195,7 @@ export default function Modal({
                                     control={control}
                                     render={({ field }) => (
                                         <>
-                                            <input type="number" onChange={field.onChange} value={field.value}
+                                            <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
                                                 className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
                                         </>
                                     )}
@@ -207,7 +211,7 @@ export default function Modal({
                                     control={control}
                                     render={({ field }) => (
                                         <>
-                                            <input type="number" onChange={field.onChange} value={field.value}
+                                            <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
                                                 className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
                                         </>
                                     )}
@@ -224,7 +228,7 @@ export default function Modal({
                                     control={control}
                                     render={({ field }) => (
                                         <>
-                                            <input type="number" onChange={field.onChange} value={field.value}
+                                            <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
                                                 className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
                                         </>
                                     )}
@@ -234,7 +238,6 @@ export default function Modal({
                     </form>
                 </div>
 
-                {/* Rodapé e Ações */}
                 <div className="p-6 border-t border-primary-900/30 bg-neutral-200/80 flex justify-end gap-4 shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
                     <button
                         type="button"

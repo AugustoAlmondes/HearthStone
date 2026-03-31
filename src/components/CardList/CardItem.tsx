@@ -16,7 +16,6 @@ interface CardItemProps {
 
 export default function CardItem({ card, onDelete, onEdit }: CardItemProps) {
   const classColors = getClassColors(card.class);
-  const isMagia = card.type === "Magia";
 
   return (
     <div className="relative group perspective-1000 w-[240px] h-[360px] cursor-pointer">
@@ -75,14 +74,14 @@ export default function CardItem({ card, onDelete, onEdit }: CardItemProps) {
       <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
         <button
           onClick={() => onEdit(card)}
-          className="w-8 h-8 rounded-full bg-primary-600 hover:bg-primary-500 text-white flex items-center justify-center border-2 border-neutral-900 shadow-lg transition-all hover:scale-110"
+          className="w-8 cursor-pointer h-8 rounded-full bg-neutral-300 hover:bg-neutral-500 text-white flex items-center justify-center border-2 border-neutral-900 shadow-lg transition-all hover:scale-110"
           title="Editar Carta"
         >
           <Edit2 className="w-4 h-4" />
         </button>
         <button
           onClick={() => onDelete(card.id)}
-          className="w-8 h-8 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center border-2 border-neutral-900 shadow-lg transition-all hover:scale-110"
+          className="w-8 cursor-pointer h-8 rounded-full bg-neutral-300 hover:bg-neutral-500 text-white flex items-center justify-center border-2 border-neutral-900 shadow-lg transition-all hover:scale-110"
           title="Deletar Carta"
         >
           <Trash2 className="w-4 h-4" />
