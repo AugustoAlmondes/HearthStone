@@ -15,7 +15,7 @@ export default function Header() {
         border-b-2 border-primary-700
         w-full h-20
         flex items-center justify-between
-        px-20
+        px-20 shadow-2xl
         "
         >
             <div className="w-40">
@@ -24,10 +24,10 @@ export default function Header() {
 
             <ul className="flex gap-10 font-manrope">
                 <li>
-                    <Link to="/" className={`${location.pathname === "/" ? "text-primary" : "text-neutral-900 "}`}>HOME</Link>
+                    <Link to="/" className={`${location.pathname === "/" ? "text-primary-400" : "text-neutral-900 "}`}>HOME</Link>
                 </li>
                 <li>
-                    <Link to="/create" className={`${location.pathname === "/create" ? "text-primary" : "text-neutral-900 "}`}>CARTAS</Link>
+                    <Link to="/create" className={`${location.pathname === "/create" ? "text-primary-400" : "text-neutral-900 "}`}>CARTAS</Link>
                 </li>
             </ul>
 
