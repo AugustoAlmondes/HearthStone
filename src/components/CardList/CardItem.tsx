@@ -15,7 +15,7 @@ interface CardItemProps {
 }
 
 export default function CardItem({ card, onDelete, onEdit }: CardItemProps) {
-  const classColors = getClassColors(card.class);
+  const classColors = getClassColors(card.classe);
 
   return (
     <div className="relative group perspective-1000 w-[240px] h-[360px] cursor-pointer">
@@ -34,22 +34,22 @@ export default function CardItem({ card, onDelete, onEdit }: CardItemProps) {
 
         <div className="px-3 text-center z-20 mt-3">
           <h3 className="font-newsreader font-bold text-xl leading-tight text-neutral-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.5)] line-clamp-2">
-            {card.name}
+            {card.nome}
           </h3>
         </div>
 
         <div className="px-4 mt-4 flex-1 overflow-y-auto custom-scrollbar z-20">
           <p className="font-manrope text-sm text-neutral-800 text-center leading-snug">
-            {card.description}
+            {card.descricao}
           </p>
         </div>
 
         <div className="flex justify-center gap-2 mt-auto pb-1 z-20">
           <span className="px-2 py-0.5 rounded-sm bg-neutral-300 border border-neutral-400 text-[10px] font-bold uppercase tracking-wider text-neutral-800 shadow-sm">
-            {card.type}
+            {card.tipo}
           </span>
           <span className={`px-2 py-0.5 rounded-sm border text-[10px] font-bold uppercase tracking-wider shadow-sm bg-linear-to-r ${classColors}`}>
-            {card.class}
+            {card.classe}
           </span>
         </div>
 
@@ -59,11 +59,11 @@ export default function CardItem({ card, onDelete, onEdit }: CardItemProps) {
             <div className="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center border border-red-900 shadow-inner">
               <Sword className="w-3 h-3 text-white" />
             </div>
-            <span className="font-newsreader font-bold text-xl text-neutral-900">{card.attack}</span>
+            <span className="font-newsreader font-bold text-xl text-neutral-900">{card.ataque}</span>
           </div>
           {/* Defesa */}
           <div className={`flex-1 flex justify-center items-center gap-1.5`}>
-            <span className="font-newsreader font-bold text-xl text-neutral-900">{card.defense}</span>
+            <span className="font-newsreader font-bold text-xl text-neutral-900">{card.defesa}</span>
             <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center border border-blue-900 shadow-inner">
               <Shield className="w-3 h-3 text-white" />
             </div>

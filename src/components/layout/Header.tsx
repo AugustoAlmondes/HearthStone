@@ -1,11 +1,14 @@
 import { Plus } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useCardStore } from "../../store/useCardStore";
 
 export default function Header() {
 
     const location = useLocation();
 
     console.log(location)
+
+    const { openForm } = useCardStore();
 
     return (
         <header
@@ -37,7 +40,9 @@ export default function Header() {
                 border-2 border-primary-400 font-medium cursor-pointer
                 hover:bg-primary-600 hover:border-primary-600 transition-all duration-200
                 active:translate-y-0.5
-                ">
+                "
+                    onClick={() => openForm()}
+                >
                     <Plus size={17} />
                     <p>NOVA CARTA</p>
                 </button>

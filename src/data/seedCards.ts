@@ -1,0 +1,55 @@
+import { v4 as uuidv4 } from "uuid";
+import { Card, CardClass, CardType } from "../types/card.types";
+
+export const seedCards: Card[] = [
+  {
+    id: uuidv4(),
+    nome: "Dragão de Fogo",
+    descricao: "Conjura uma chama devastadora sobre todos os inimigos.",
+    ataque: 8,
+    defesa: 4,
+    mana: 7,
+    tipo: "Magia" as CardType,
+    classe: "Mago" as CardClass,
+  },
+  {
+    id: uuidv4(),
+    nome: "Escudeiro Sagrado",
+    descricao: "Protege aliados adjacentes com escudo divino.",
+    ataque: 2,
+    defesa: 9,
+    mana: 3,
+    tipo: "Criatura" as CardType,
+    classe: "Paladino" as CardClass,
+  },
+  {
+    id: uuidv4(),
+    nome: "Flecha Venenosa",
+    descricao: "Causa 3 de dano e aplica veneno ao alvo.",
+    ataque: 3,
+    defesa: 0,
+    mana: 2,
+    tipo: "Magia" as CardType,
+    classe: "Caçador" as CardClass,
+  },
+  {
+    id: uuidv4(),
+    nome: "Guardião da Floresta",
+    descricao: "Invoca raízes que imobilizam criaturas inimigas.",
+    ataque: 5,
+    defesa: 6,
+    mana: 5,
+    tipo: "Criatura" as CardType,
+    classe: "Druida" as CardClass,
+  },
+  {
+    id: uuidv4(),
+    nome: "Poção de Cura",
+    descricao: "Restaura 6 pontos de vida ao herói.",
+    ataque: 0,
+    defesa: 0,
+    mana: 1,
+    tipo: "Magia" as CardType,
+    classe: "Qualquer" as CardClass,
+  },
+];

@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import { cardService } from "../services/cardService";
-import { type Card, type CardFormData } from "../types/card.types"
-import { create } from 'zustand'
+import { type Card, type CardFormData } from "../types/card.types";
+import { create } from 'zustand';
+import { seedCards } from "../data/seedCards";
 
 interface CardStore {
     cards: Card[];
@@ -24,6 +25,14 @@ export const useCardStore = create<CardStore>((set, get) => ({
 
     loadCards: () => {
         let cards = cardService.getAll();
+        
+        // Popula com seed se o storage estiver vazio ou contiver dados antigos (sem campo 'nome')
+        const isOldData = cards.length > 0 && !('nome' in cards[0]);
+        if (cards.length === 0 || isOldData) {
+            cardService.save(seedCards);
+            cards = seedCards;
+        }
+        
         set({ cards });
     },
 

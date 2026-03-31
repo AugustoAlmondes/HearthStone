@@ -3,9 +3,8 @@ import type { Card, CardClass, CardType } from "../types/card.types";
 
 export interface CardFilters {
     search: string;
-    class: CardClass | "";
-    type: CardType | "";
-
+    classe: CardClass | "";
+    tipo: CardType | "";
 }
 
 export default function useCardFilters(cards: Card[], filters: CardFilters): Card[] {
@@ -14,13 +13,13 @@ export default function useCardFilters(cards: Card[], filters: CardFilters): Car
             const matchSearch =
                 filters.search === '' ||
                 card.id === filters.search ||
-                card.name.toLowerCase().includes(filters.search.toLowerCase());
-            const matchClass =
-                filters.class === '' || card.class === filters.class;
-            const matchType =
-                filters.type === '' || card.type === filters.type
+                card.nome.toLowerCase().includes(filters.search.toLowerCase());
+            const matchClasse =
+                filters.classe === '' || card.classe === filters.classe;
+            const matchTipo =
+                filters.tipo === '' || card.tipo === filters.tipo
 
-            return matchSearch && matchClass && matchType;
+            return matchSearch && matchClasse && matchTipo;
         })
     }, [cards, filters])
 }

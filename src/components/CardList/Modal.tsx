@@ -30,38 +30,36 @@ export default function Modal({
     } = useForm<CardFormData>({
         resolver: zodResolver(cardSchema),
         defaultValues: {
-            name: "",
-            description: "",
-            type: "Criatura",
-            class: "Qualquer",
-            attack: 0,
-            defense: 0,
+            nome: "",
+            descricao: "",
+            tipo: "Criatura",
+            classe: "Qualquer",
+            ataque: 0,
+            defesa: 0,
             mana: 1,
         }
     });
-
-    // const watchType = watch("type");
 
     useEffect(() => {
         if (isFormOpen) {
             if (selectedCard) {
                 reset({
-                    name: selectedCard.name,
-                    description: selectedCard.description,
-                    type: selectedCard.type,
-                    class: selectedCard.class,
-                    attack: selectedCard.attack,
-                    defense: selectedCard.defense,
+                    nome: selectedCard.nome,
+                    descricao: selectedCard.descricao,
+                    tipo: selectedCard.tipo,
+                    classe: selectedCard.classe,
+                    ataque: selectedCard.ataque,
+                    defesa: selectedCard.defesa,
                     mana: selectedCard.mana,
                 });
             } else {
                 reset({
-                    name: "",
-                    description: "",
-                    type: "Criatura",
-                    class: "Qualquer",
-                    attack: 0,
-                    defense: 0,
+                    nome: "",
+                    descricao: "",
+                    tipo: "Criatura",
+                    classe: "Qualquer",
+                    ataque: 0,
+                    defesa: 0,
                     mana: 1,
                 });
             }
@@ -92,13 +90,11 @@ export default function Modal({
         >
             <div className="relative w-full max-w-2xl bg-neutral-100 rounded-lg shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-primary-800 flex flex-col max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-300">
 
-                {/* Bordas Ornamentadas Decorativas */}
                 <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-primary-400 rounded-tl-lg pointer-events-none" />
                 <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-primary-400 rounded-tr-lg pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-primary-400 rounded-bl-lg pointer-events-none" />
                 <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-primary-400 rounded-br-lg pointer-events-none" />
 
-                {/* Cabeçalho */}
                 <div className="flex items-center justify-between p-6 border-b border-primary-900/30 bg-neutral-200/50">
                     <h2 className="text-3xl font-newsreader font-bold text-neutral-900 drop-shadow-sm flex items-center gap-3">
                         {isEditing ? "Editar Carta" : "Adicionar Carta"}
@@ -112,38 +108,34 @@ export default function Modal({
                     </button>
                 </div>
 
-                {/* Corpo do Formulário */}
                 <div className="p-6 overflow-y-auto custom-scrollbar flex-1">
                     <form id="card-form" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
 
-                        {/* Linha 1: Nome */}
                         <div className="flex flex-col gap-2">
                             <label className="text-neutral-900 font-manrope text-sm uppercase tracking-widest font-bold flex items-center gap-2">
                                 Nome da Carta
                             </label>
                             <input
-                                {...register("name")}
+                                {...register("nome")}
                                 placeholder="Exifício Ancião..."
-                                className={`h-12 w-full px-4 bg-neutral-200 text-neutral-900 placeholder:text-neutral-500 outline-none border focus:bg-neutral-100 transition-all font-manrope shadow-inner rounded-sm ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-primary-900/50 focus:border-primary-400'}`}
+                                className={`h-12 w-full px-4 bg-neutral-200 text-neutral-900 placeholder:text-neutral-500 outline-none border focus:bg-neutral-100 transition-all font-manrope shadow-inner rounded-sm ${errors.nome ? 'border-red-500 focus:border-red-500' : 'border-primary-900/50 focus:border-primary-400'}`}
                             />
-                            {errors.name && <span className="text-red-500 text-xs font-bold uppercase tracking-wider">{errors.name.message}</span>}
+                            {errors.nome && <span className="text-red-500 text-xs font-bold uppercase tracking-wider">{errors.nome.message}</span>}
                         </div>
 
-                        {/* Linha 2: Descrição */}
                         <div className="flex flex-col gap-2">
                             <label className="text-neutral-900 font-manrope text-sm uppercase tracking-widest font-bold flex items-center gap-2">
                                 Efeito / Descrição
                             </label>
                             <textarea
-                                {...register("description")}
+                                {...register("descricao")}
                                 placeholder="Grito de Guerra: Cause 3 de dano a um lacaio inimigo..."
                                 rows={3}
-                                className={`w-full p-4 bg-neutral-200 text-neutral-900 placeholder:text-neutral-500 outline-none border focus:bg-neutral-100 transition-all font-manrope shadow-inner rounded-sm resize-none ${errors.description ? 'border-red-500 focus:border-red-500' : 'border-primary-900/50 focus:border-primary-400'}`}
+                                className={`w-full p-4 bg-neutral-200 text-neutral-900 placeholder:text-neutral-500 outline-none border focus:bg-neutral-100 transition-all font-manrope shadow-inner rounded-sm resize-none ${errors.descricao ? 'border-red-500 focus:border-red-500' : 'border-primary-900/50 focus:border-primary-400'}`}
                             />
-                            {errors.description && <span className="text-red-500 text-xs font-bold uppercase tracking-wider">{errors.description.message}</span>}
+                            {errors.descricao && <span className="text-red-500 text-xs font-bold uppercase tracking-wider">{errors.descricao.message}</span>}
                         </div>
 
-                        {/* Linha 3: Tipo e Classe */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="flex flex-col gap-2">
                                 <label className="text-neutral-900 font-manrope text-sm uppercase tracking-widest font-bold flex items-center gap-2">
@@ -151,16 +143,13 @@ export default function Modal({
                                 </label>
                                 <div className="relative">
                                     <select
-                                        {...register("type")}
+                                        {...register("tipo")}
                                         className="h-12 w-full px-4 appearance-none cursor-pointer bg-neutral-200 text-neutral-900 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all font-manrope rounded-sm shadow-inner outline-none"
                                     >
                                         {CARD_TYPES.map((tipo) => (
                                             <option key={tipo} value={tipo}>{tipo}</option>
                                         ))}
                                     </select>
-                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-primary-500">
-
-                                    </div>
                                 </div>
                             </div>
 
@@ -170,7 +159,7 @@ export default function Modal({
                                 </label>
                                 <div className="relative">
                                     <select
-                                        {...register("class")}
+                                        {...register("classe")}
                                         className="h-12 w-full px-4 appearance-none cursor-pointer bg-neutral-200 text-neutral-900 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all font-manrope rounded-sm shadow-inner outline-none"
                                     >
                                         {CARD_CLASSES.map((classe) => (
@@ -181,10 +170,7 @@ export default function Modal({
                             </div>
                         </div>
 
-                        {/* Linha 4: Atributos Numéricos (Ataque, Defesa, Mana) */}
                         <div className="grid grid-cols-3 gap-4 border-t border-primary-900/20 pt-6 mt-2">
-
-                            {/* Custo de Mana */}
                             <div className="flex flex-col items-center gap-3">
                                 <label className="text-neutral-900 font-manrope text-xs uppercase tracking-widest font-bold flex items-center gap-1">
                                     Mana
@@ -193,10 +179,8 @@ export default function Modal({
                                     name="mana"
                                     control={control}
                                     render={({ field }) => (
-                                        <>
-                                            <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
-                                                className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-                                        </>
+                                        <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
+                                            className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none" />
                                     )}
                                 />
                             </div>
@@ -206,30 +190,25 @@ export default function Modal({
                                     Ataque
                                 </label>
                                 <Controller
-                                    name="attack"
+                                    name="ataque"
                                     control={control}
                                     render={({ field }) => (
-                                        <>
-                                            <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
-                                                className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-                                        </>
+                                        <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
+                                            className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none" />
                                     )}
                                 />
                             </div>
 
-                            {/* Defesa */}
                             <div className={`flex flex-col items-center gap-3 transition-opacity`}>
                                 <label className="text-neutral-900 font-manrope text-xs uppercase tracking-widest font-bold flex items-center gap-1">
                                     Defesa
                                 </label>
                                 <Controller
-                                    name="defense"
+                                    name="defesa"
                                     control={control}
                                     render={({ field }) => (
-                                        <>
-                                            <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
-                                                className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-                                        </>
+                                        <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
+                                            className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none" />
                                     )}
                                 />
                             </div>
