@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { X } from "lucide-react";
+import { X, AlertCircle } from "lucide-react";
 import { cardSchema, type Card, type CardFormData, CARD_TYPES, CARD_CLASSES } from "../../types/card.types";
 
 interface ModalProps {
     isFormOpen: boolean;
     closeForm: () => void;
     createCard: (data: CardFormData) => void;
-    updateCard: (id: string, data: CardFormData) => void;
+    updateCard: (id: number, data: CardFormData) => void;
     selectedCard?: Card | null;
 }
 
@@ -20,6 +20,7 @@ export default function Modal({
     selectedCard
 }: ModalProps) {
     const isEditing = !!selectedCard;
+    const [storeError, setStoreError] = useState<string | null>(null);
 
     const {
         register,
@@ -42,6 +43,7 @@ export default function Modal({
 
     useEffect(() => {
         if (isFormOpen) {
+            setStoreError(null);
             if (selectedCard) {
                 reset({
                     nome: selectedCard.nome,
@@ -69,12 +71,17 @@ export default function Modal({
     if (!isFormOpen) return null;
 
     const onSubmit = (data: CardFormData) => {
-        if (isEditing && selectedCard) {
-            updateCard(selectedCard.id, data);
-        } else {
-            createCard(data);
+        try {
+            setStoreError(null);
+            if (isEditing && selectedCard) {
+                updateCard(selectedCard.id, data);
+            } else {
+                createCard(data);
+            }
+            closeForm();
+        } catch (error: any) {
+            setStoreError(error.message || "Erro ao salvar a carta.");
         }
-        closeForm();
     };
 
     const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -109,6 +116,12 @@ export default function Modal({
                 </div>
 
                 <div className="p-6 overflow-y-auto custom-scrollbar flex-1">
+                    {storeError && (
+                        <div className="mb-6 p-4 rounded-md bg-red-500/10 border border-red-500/50 flex items-start gap-3">
+                            <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                            <p className="text-red-500 font-manrope font-bold text-sm leading-tight">{storeError}</p>
+                        </div>
+                    )}
                     <form id="card-form" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
 
                         <div className="flex flex-col gap-2">
@@ -170,8 +183,8 @@ export default function Modal({
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 border-t border-primary-900/20 pt-6 mt-2">
-                            <div className="flex flex-col items-center gap-3">
+                        <div className="grid grid-cols-3 gap-4 border-t border-primary-900/20 pt-6 mt-2 relative">
+                            <div className="flex flex-col items-center gap-3 relative">
                                 <label className="text-neutral-900 font-manrope text-xs uppercase tracking-widest font-bold flex items-center gap-1">
                                     Mana
                                 </label>
@@ -180,12 +193,13 @@ export default function Modal({
                                     control={control}
                                     render={({ field }) => (
                                         <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
-                                            className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none" />
+                                            className={`w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none ${errors.mana ? 'border-red-500' : 'border-primary-900/50'}`} />
                                     )}
                                 />
+                                {errors.mana && <span className="absolute -bottom-5 text-red-500 text-[10px] font-bold uppercase tracking-wider w-max">{errors.mana.message}</span>}
                             </div>
 
-                            <div className={`flex flex-col items-center gap-3 transition-opacity`}>
+                            <div className="flex flex-col items-center gap-3 relative transition-opacity">
                                 <label className="text-neutral-900 font-manrope text-xs uppercase tracking-widest font-bold flex items-center gap-1">
                                     Ataque
                                 </label>
@@ -194,12 +208,13 @@ export default function Modal({
                                     control={control}
                                     render={({ field }) => (
                                         <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
-                                            className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none" />
+                                            className={`w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none ${errors.ataque ? 'border-red-500' : 'border-primary-900/50'}`} />
                                     )}
                                 />
+                                {errors.ataque && <span className="absolute -bottom-5 text-red-500 text-[10px] font-bold uppercase tracking-wider w-max">{errors.ataque.message}</span>}
                             </div>
 
-                            <div className={`flex flex-col items-center gap-3 transition-opacity`}>
+                            <div className="flex flex-col items-center gap-3 relative transition-opacity">
                                 <label className="text-neutral-900 font-manrope text-xs uppercase tracking-widest font-bold flex items-center gap-1">
                                     Defesa
                                 </label>
@@ -208,9 +223,10 @@ export default function Modal({
                                     control={control}
                                     render={({ field }) => (
                                         <input type="number" onChange={(e) => field.onChange(Number(e.target.value))} value={field.value}
-                                            className="w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border border-primary-900/50 hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none" />
+                                            className={`w-12 h-12 text-center text-2xl font-bold font-manrope text-neutral-900 bg-neutral-200 border hover:border-primary-400 focus:border-primary-400 transition-all rounded-sm shadow-inner outline-none appearance-none ${errors.defesa ? 'border-red-500' : 'border-primary-900/50'}`} />
                                     )}
                                 />
+                                {errors.defesa && <span className="absolute -bottom-5 text-red-500 text-[10px] font-bold uppercase tracking-wider w-max">{errors.defesa.message}</span>}
                             </div>
                         </div>
                     </form>

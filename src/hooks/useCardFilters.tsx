@@ -12,7 +12,7 @@ export default function useCardFilters(cards: Card[], filters: CardFilters): Car
         return cards.filter((card) => {
             const matchSearch =
                 filters.search === '' ||
-                card.id === filters.search ||
+                card.id.toString() === filters.search.trim() ||
                 card.nome.toLowerCase().includes(filters.search.toLowerCase());
             const matchClasse =
                 filters.classe === '' || card.classe === filters.classe;

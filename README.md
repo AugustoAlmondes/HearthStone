@@ -47,7 +47,15 @@ Conforme as diretrizes mínimas do teste, segue abaixo o guia de execução.
 Faça o clone deste repositório e instale todas as dependências do projeto:
 
 ```bash
+git clone https://github.com/AugustoAlmondes/HearthStone.git
+cd HearthStone
 npm install
+```
+
+ou
+
+```bash
+pnpm install
 ```
 *(Nota: O projeto também suporta perfeitamente o gerenciador pacotes `pnpm`)*
 
@@ -58,6 +66,12 @@ Para rodar a aplicação localmente:
 npm run dev
 ```
 
+ou
+
+```bash
+pnpm run dev
+```
+
 ### Build de produção
 Para simular e gerar a compilação final utilizada junto ao Deploy:
 
@@ -65,6 +79,8 @@ Para simular e gerar a compilação final utilizada junto ao Deploy:
 npm run build
 npm run preview
 ```
+
+
 
 ---
 

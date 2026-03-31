@@ -7,7 +7,7 @@ export type CardClass = "Mago" | "Paladino" | "Caçador" | "Druida" | "Qualquer"
 export const CARD_CLASSES: CardClass[] = ["Mago", "Paladino", "Caçador", "Druida", "Qualquer"];
 
 export interface Card {
-  id: string;
+  id: number;
   nome: string;
   descricao: string;
   ataque: number;

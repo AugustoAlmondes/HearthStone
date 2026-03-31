@@ -10,7 +10,7 @@ import { getClassColors, getManaColor } from "../../utils/card";
 
 interface CardItemProps {
   card: Card;
-  onDelete: (id: string) => void;
+  onDelete: (id: number) => void;
   onEdit: (card?: Card) => void;
 }
 
@@ -29,6 +29,7 @@ export default function CardItem({ card, onDelete, onEdit }: CardItemProps) {
 
         <div className={`mx-2 mt-1 h-32 rounded-t-sm bg-linear-to-br ${classColors} shadow-inner flex items-center justify-center overflow-hidden relative border border-primary-900/60`}>
           <div className="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
+          <div className="absolute top-1 right-1 px-1.5 py-0.5 bg-neutral-900/60 rounded text-[10px] font-manrope font-bold text-white tracking-widest border border-white/20 z-10 shadow-sm">#{card.id}</div>
           <Hexagon className="w-16 h-16 text-white/20" strokeWidth={1} />
         </div>
 

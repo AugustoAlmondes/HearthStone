@@ -30,7 +30,7 @@ export const cardService = {
         return next;
     },
 
-    delete(cards: Card[], id: string): Card[] {
+    delete(cards: Card[], id: number): Card[] {
         const next = cards.filter((c) => c.id !== id);
         cardService.save(next);
         return next;
