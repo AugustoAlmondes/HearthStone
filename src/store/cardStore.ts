@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { cardService } from "../services/cardServidce";
+import { cardService } from "../services/cardService";
 import { type Card, type CardFormData } from "../types/card.types"
 import { create } from 'zustand'
 

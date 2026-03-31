@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Modal from "../components/CardList/Modal"
 import Aside from "../components/list/Aside"
 import {
@@ -12,6 +12,8 @@ import {
 import { PlusCircle, Search, X } from "lucide-react"
 import { useCardStore } from "../store/cardStore"
 import CardItem from "../components/CardList/CardItem"
+import useCardFilters, { type CardFilters } from "../hooks/useCardFilters"
+import type { CardClass, CardType } from "../types/card.types"
 
 const classes = [
     "Mago",
@@ -42,11 +44,17 @@ export default function List() {
 
     } = useCardStore();
 
+    const [filters, setFilters] = useState<CardFilters>({ search: "", class: "", type: "" });
+    const filteredCards = useCardFilters(cards, filters);
+
     useEffect(() => {
         loadCards();
     }, []);
 
     return (
+
+        
+
         <>
             <div className="flex">
                 <Aside />
@@ -79,6 +87,8 @@ export default function List() {
                                     className="pl-11 pr-4 h-12 w-full bg-neutral-200/80 text-neutral-900 placeholder:text-neutral-500 outline-none border border-primary-900/80 focus:border-primary-400 focus:bg-neutral-200 transition-all shadow-inner font-manrope text-sm rounded-sm"
                                     type="text"
                                     placeholder="Buscar por ID ou nome..."
+                                    value={filters.search}
+                                    onChange={(e) => setFilters({ ...filters, search: e.target.value })}
                                 />
                             </div>
                         </div>
@@ -87,12 +97,16 @@ export default function List() {
                             <label className="text-primary-300 font-manrope text-xs uppercase tracking-[0.2em] font-bold">
                                 Classe
                             </label>
-                            <Select>
+                            <Select 
+                                value={filters.class || "Todas"} 
+                                onValueChange={(val) => setFilters({ ...filters, class: val === "Todas" ? "" : val as CardClass })}
+                            >
                                 <SelectTrigger className="cursor-pointer h-12 w-full rounded-sm border border-primary-900/80 bg-neutral-200/80 text-neutral-900 hover:border-primary-500 focus:bg-neutral-200 focus:border-primary-400 transition-all font-manrope text-sm shadow-inner group-focus-within:border-primary-400">
                                     <SelectValue placeholder="Todas as classes" />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-sm border border-primary-600 bg-neutral-200 shadow-[0_5px_15px_rgba(0,0,0,0.7)]">
                                     <SelectGroup className="p-0">
+                                        <SelectItem className="text-neutral-900 cursor-pointer rounded-none hover:text-primary-300 focus:text-primary-300 transition-colors font-manrope" value="Todas">Todas as classes</SelectItem>
                                         {classes.map((c) => (
                                             <SelectItem className="text-neutral-900 cursor-pointer rounded-none hover:text-primary-300 focus:text-primary-300 transition-colors font-manrope" key={c} value={c}>{c}</SelectItem>
                                         ))}
@@ -105,12 +119,16 @@ export default function List() {
                             <label className="text-primary-300 font-manrope text-xs uppercase tracking-[0.2em] font-bold">
                                 Tipo
                             </label>
-                            <Select>
+                            <Select 
+                                value={filters.type || "Todos"} 
+                                onValueChange={(val) => setFilters({ ...filters, type: val === "Todos" ? "" : val as CardType })}
+                            >
                                 <SelectTrigger className="cursor-pointer h-12 w-full rounded-sm border border-primary-900/80 bg-neutral-200/80 text-neutral-900 hover:border-primary-500 focus:bg-neutral-200 focus:border-primary-400 transition-all font-manrope text-sm shadow-inner">
                                     <SelectValue placeholder="Todos os tipos" />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-sm border border-primary-600 bg-neutral-200 shadow-[0_5px_15px_rgba(0,0,0,0.7)]">
                                     <SelectGroup className="p-0">
+                                        <SelectItem className="text-neutral-900 cursor-pointer rounded-none hover:text-primary-300 focus:text-primary-300 transition-colors font-manrope" value="Todos">Todos os tipos</SelectItem>
                                         {types.map((t) => (
                                             <SelectItem className="text-neutral-900 cursor-pointer rounded-none hover:text-primary-300 focus:text-primary-300 transition-colors font-manrope" key={t} value={t}>{t}</SelectItem>
                                         ))}
@@ -120,7 +138,11 @@ export default function List() {
                         </div>
 
                         <div className="flex items-end h-full z-10 w-full md:w-auto mt-2 md:mt-0">
-                            <button type="button" className="group h-12 px-5 flex w-full md:w-auto items-center justify-center gap-2 font-manrope text-xs uppercase tracking-wider font-bold text-neutral-700 bg-neutral-200 border border-neutral-400 rounded-sm hover:border-primary-400 hover:text-primary-300 hover:bg-neutral transition-all shadow-sm cursor-pointer">
+                            <button 
+                                type="button" 
+                                onClick={() => setFilters({ search: "", class: "", type: "" })}
+                                className="group h-12 px-5 flex w-full md:w-auto items-center justify-center gap-2 font-manrope text-xs uppercase tracking-wider font-bold text-neutral-700 bg-neutral-200 border border-neutral-400 rounded-sm hover:border-primary-400 hover:text-primary-300 hover:bg-neutral transition-all shadow-sm cursor-pointer"
+                            >
                                 <X className="w-4 h-4 group-hover:text-primary-400 transition-colors" />
                                 Limpar
                             </button>
@@ -128,9 +150,15 @@ export default function List() {
                     </form>
 
                     <div className="flex flex-wrap gap-6 mx justify-center mt-15">
-                        {cards.map((c) =>
-                        (<CardItem key={c.id} card={c} onDelete={deleteCard} onEdit={openForm} />
-                        ))}
+                        {filteredCards.length === 0 ? (
+                            <div className="w-full text-center py-12">
+                                <p className="text-neutral-600 font-manrope text-lg">Nenhuma carta encontrada.</p>
+                            </div>
+                        ) : (
+                            filteredCards.map((c) => (
+                                <CardItem key={c.id} card={c} onDelete={deleteCard} onEdit={openForm} />
+                            ))
+                        )}
                         <div
                             onClick={() => openForm()}
                             className="relative group perspective-1000 w-[240px] h-[360px] cursor-pointer">

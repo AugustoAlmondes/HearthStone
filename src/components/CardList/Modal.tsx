@@ -26,7 +26,6 @@ export default function Modal({
         handleSubmit,
         control,
         reset,
-        watch,
         formState: { errors }
     } = useForm<CardFormData>({
         resolver: zodResolver(cardSchema),
@@ -41,7 +40,7 @@ export default function Modal({
         }
     });
 
-    const watchType = watch("type");
+    // const watchType = watch("type");
 
     useEffect(() => {
         if (isFormOpen) {
