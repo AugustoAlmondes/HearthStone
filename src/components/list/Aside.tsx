@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function Aside() {
     const [open, setOpen] = useState(true);
@@ -24,7 +24,7 @@ export default function Aside() {
                         </ul>
                     </div>
                     <div className="flex-1 text-neutral-800 flex items-center hover:bg-primary-400/10 cursor-pointer" onClick={() => setOpen(!open)}>
-                        <IoIosArrowBack size={20} />
+                        {open ? <IoIosArrowBack size={20} /> : <IoIosArrowForward size={20} />}
                     </div>
                 </div>
             </aside>

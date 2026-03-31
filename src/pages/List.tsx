@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect } from "react"
 import Modal from "../components/CardList/Modal"
 import Aside from "../components/list/Aside"
 import {
@@ -11,7 +11,7 @@ import {
 } from "../components/ui/select"
 import { PlusCircle, Search, X } from "lucide-react"
 import { useCardStore } from "../store/cardStore"
-import type { Card, CardFormData } from "../types/card.types"
+import CardItem from "../components/CardList/CardItem"
 
 const classes = [
     "Mago",
@@ -29,23 +29,22 @@ const types = [
 
 export default function List() {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+    const {
+        isFormOpen,
+        cards,
+        selectedCard,
+        loadCards,
+        createCard,
+        updateCard,
+        deleteCard,
+        openForm,
+        closeForm
 
-    const handleOpenModal = (card?: Card) => {
-        setSelectedCard(card || null);
-        setIsModalOpen(true);
-    };
+    } = useCardStore();
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setSelectedCard(null);
-    };
-
-    const handleSaveCard = (data: CardFormData) => {
-        console.log(data);
-    };
-
+    useEffect(() => {
+        loadCards();
+    }, []);
 
     return (
         <>
@@ -129,9 +128,11 @@ export default function List() {
                     </form>
 
                     <div className="flex flex-wrap gap-6 mx justify-center mt-15">
-
+                        {cards.map((c) =>
+                        (<CardItem key={c.id} card={c} onDelete={deleteCard} onEdit={openForm} />
+                        ))}
                         <div
-                            onClick={() => handleOpenModal()}
+                            onClick={() => openForm()}
                             className="relative group perspective-1000 w-[240px] h-[360px] cursor-pointer">
                             <div className="relative w-full h-full rounded-xl transition-all duration-300 transform-gpu group-hover:border-neutral-400 flex flex-col overflow-visible bg-neutral-200/30 border-2 border-dashed border-neutral-300">
                                 <div className="flex flex-col gap-2 items-center justify-center h-full">
@@ -144,12 +145,10 @@ export default function List() {
                 </div>
             </div>
             <Modal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onSave={(data) => {
-                    console.log(data);
-                }}
-                initialData={selectedCard}
+                isFormOpen={isFormOpen}
+                closeForm={closeForm}
+                createCard={createCard}
+                selectedCard={selectedCard}
             />
         </>
     )
