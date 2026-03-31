@@ -1,36 +1,38 @@
 import { z } from "zod";
 
 export type CardType = "Magia" | "Criatura";
+export const CARD_TYPES: CardType[] = ["Magia", "Criatura"];
 
 export type CardClass = "Mago" | "Paladino" | "Caçador" | "Druida" | "Qualquer";
+export const CARD_CLASSES: CardClass[] = ["Mago", "Paladino", "Caçador", "Druida", "Qualquer"];
 
 
 export interface Card {
   id: string;
-  nome: string;
-  descricao: string;
-  ataque: number;
-  defesa: number;
+  name: string;
+  description: string;
+  attack: number;
+  defense: number;
   mana: number;
-  tipo: CardType;
-  classe: CardClass;
+  type: CardType;
+  class: CardClass;
 }
 
 export const cardSchema = z.object({
-  nome: z
+  name: z
     .string()
     .min(1, "Nome é obrigatório")
     .max(60, "Nome muito longo"),
-  descricao: z
+  description: z
     .string()
     .min(1, "Descrição é obrigatória")
     .max(300, "Descrição muito longa"),
-  ataque: z
+  attack: z
     .number({ error: "Informe um número" })
     .int()
     .min(0)
     .max(10, "Máximo 10"),
-  defesa: z
+  defense: z
     .number({ error: "Informe um número" })
     .int()
     .min(0)
@@ -40,8 +42,8 @@ export const cardSchema = z.object({
     .int()
     .min(0)
     .max(10, "Máximo 10"),
-  tipo: z.enum(["Magia", "Criatura"]),
-  classe: z.enum(["Mago", "Paladino", "Caçador", "Druida", "Qualquer"]),
+  type: z.enum(["Magia", "Criatura"]),
+  class: z.enum(["Mago", "Paladino", "Caçador", "Druida", "Qualquer"]),
 });
 
 export type CardFormData = z.infer<typeof cardSchema>;

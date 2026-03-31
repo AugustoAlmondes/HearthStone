@@ -1,7 +1,17 @@
-import CardItem from "../components/CardList/CardItem"
+import { useState } from "react"
+import Modal from "../components/CardList/Modal"
 import Aside from "../components/list/Aside"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../components/ui/select"
-import { Search, X } from "lucide-react"
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+} from "../components/ui/select"
+import { PlusCircle, Search, X } from "lucide-react"
+import { useCardStore } from "../store/cardStore"
+import type { Card, CardFormData } from "../types/card.types"
 
 const classes = [
     "Mago",
@@ -18,6 +28,25 @@ const types = [
 ]
 
 export default function List() {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+
+    const handleOpenModal = (card?: Card) => {
+        setSelectedCard(card || null);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedCard(null);
+    };
+
+    const handleSaveCard = (data: CardFormData) => {
+        console.log(data);
+    };
+
+
     return (
         <>
             <div className="flex">
@@ -100,37 +129,28 @@ export default function List() {
                     </form>
 
                     <div className="flex flex-wrap gap-6 mx justify-center mt-15">
-                        <CardItem
-                            card={{
-                                id: "1",
-                                nome: "Mestre dos Magos",
-                                descricao: "Esta carta faz o seu oponente ficar com raiva",
-                                ataque: 20,
-                                defesa: 10,
-                                mana: 1,
-                                tipo: "Criatura",
-                                classe: "Paladino",
-                            }}
-                            onEdit={() => { }}
-                            onDelete={() => { }}
-                        />
-                        <CardItem
-                            card={{
-                                id: "1",
-                                nome: "Mestre dos Magos",
-                                descricao: "Esta carta faz o seu oponente ficar com raiva",
-                                ataque: 10,
-                                defesa: 20,
-                                mana: 10,
-                                tipo: "Criatura",
-                                classe: "Mago",
-                            }}
-                            onEdit={() => { }}
-                            onDelete={() => { }}
-                        />
+
+                        <div
+                            onClick={() => handleOpenModal()}
+                            className="relative group perspective-1000 w-[240px] h-[360px] cursor-pointer">
+                            <div className="relative w-full h-full rounded-xl transition-all duration-300 transform-gpu group-hover:border-neutral-400 flex flex-col overflow-visible bg-neutral-200/30 border-2 border-dashed border-neutral-300">
+                                <div className="flex flex-col gap-2 items-center justify-center h-full">
+                                    <PlusCircle size={50} className="text-neutral-300 group-hover:text-neutral-400 transition-colors" />
+                                    <h2 className="text-neutral-300 font-newsreader text-2xl font-bold group-hover:text-neutral-400 transition-colors">Nova carta</h2>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSave={(data) => {
+                    console.log(data);
+                }}
+                initialData={selectedCard}
+            />
         </>
     )
 }
