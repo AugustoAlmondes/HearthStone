@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# HearthStone Card Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto de gerenciamento de cartas de Hearthstone, desenvolvido como um desafio técnico. A aplicação é uma Single Page Application (SPA) moderna que permite consultar, criar, editar e excluir cartas exclusivas, mantendo todos os dados salvos localmente no navegador (localStorage) sem a necessidade de um backend.
 
-Currently, two official plugins are available:
+🌍 **Deploy da Aplicação**: [Hearthstone Deck no Netlify](https://my-hearthstone-deck.netlify.app/)  
+👨‍💻 **Meu GitHub**: [@AugustoAlmondes](https://github.com/AugustoAlmondes)  
+📂 **Repositório**: [Código Fonte - HearthStone](https://github.com/AugustoAlmondes/HearthStone)  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Tecnologias e Stack Utilizada
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O projeto foi construído seguindo rigorosamente as especificações do plano base, utilizando as seguintes tecnologias:
 
-## Expanding the ESLint configuration
+- **Framework**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Gerenciamento de Estado**: Zustand
+- **Formulários e Validação**: React Hook Form + Zod
+- **Estilização**: TailwindCSS (com design estético inspirado no Hearthstone)
+- **Ícones**: Lucide React / React Icons
+- **Identificadores Únicos**: `uuid` (v4)
+- **Acessibilidade UI**: Radix UI
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🎯 Funcionalidades Implementadas (Requisitos do Desafio)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **CRUD Completo**: Sistema 100% funcional para Adicionar, Ler, Editar e Excluir cartas do deck.
+- **Filtros e Busca**: Busca reativa por `id` (exato) ou `nome` (parcial), somado a filtros de seleção por `classe` e `tipo` (Múltiplos filtros atuam como 'AND lógico').
+- **Persistência Local**: Todos os cards são salvos no `localStorage` sob a chave `hs_cards`.
+- **Cartas Iniciais (Seed)**: A aplicação é inteligente para renderizar 5 cartas oficiais com status tematizados caso seja a primeira vez do usuário acessando o site.
+- **Formulários com Zod**: Validação em tempo real garantindo que os atributos (Ataque, Defesa e Mana) respeitem o limite fechado de valores `0 a 10` e que textos obedeçam ao limite de caracteres estipulado.
+- **Prevenção e Tratamento**: Modais e lógicas impeditivas de quebra de componentes.
+- **Design de Alta Fidelidade**: Sidebar estilizada, cards com cores dinâmicas baseadas na "Classe", efeitos overlay de iluminação e consistência visual Premium.
+- **Tipagem Forte**: Resolução de todos os tipos via interfaces e build livre de erros de tipagem.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## ⚙️ Como compilar e executar
+
+Conforme as diretrizes mínimas do teste, segue abaixo o guia de execução.
+
+### Requisitos
+- Node.js >= 18
+
+### Instalação
+Faça o clone deste repositório e instale todas as dependências do projeto:
+
+```bash
+npm install
+```
+*(Nota: O projeto também suporta perfeitamente o gerenciador pacotes `pnpm`)*
+
+### Desenvolvimento
+Para rodar a aplicação localmente:
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Build de produção
+Para simular e gerar a compilação final utilizada junto ao Deploy:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+npm run preview
 ```
+
+---
+
+> *Desafio desenvolvido por [Augusto Almondes](https://github.com/AugustoAlmondes).*
