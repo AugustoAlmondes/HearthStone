@@ -83,5 +83,3 @@ npm run preview
 
 
 ---
-
-> *Desafio desenvolvido por [Augusto Almondes](https://github.com/AugustoAlmondes).*
